@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MagazijnController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +26,8 @@ Route::get('/klant', function () {
     return view('roles.klant');
 })->middleware(['auth', 'verified', 'role:klant'])->name('klant.dashboard');
 
-Route::get('/magazijn', function () {
-    return view('roles.magazijn');
-})->middleware(['auth', 'verified', 'role:magazijn_medewerker'])->name('magazijn.dashboard');
+Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('magazijn')->name('magazijn.')->group(function () {
+    Route::get('/', [MagazijnController::class, 'overzicht'])->name('overzicht');
+});
 
 require __DIR__.'/auth.php';

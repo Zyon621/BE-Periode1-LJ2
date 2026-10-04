@@ -17,7 +17,7 @@
                     @elseif (auth()->user()->hasRole('klant'))
                         <p class="mt-4"><a class="underline text-indigo-600" href="{{ route('klant.dashboard') }}">Ga naar klant-pagina</a></p>
                     @elseif (auth()->user()->hasRole('magazijn_medewerker'))
-                        <p class="mt-4"><a class="underline text-indigo-600" href="{{ route('magazijn.dashboard') }}">Ga naar magazijn-pagina</a></p>
+                        <p class="mt-4"><a class="underline text-indigo-600" href="{{ route('magazijn.overzicht') }}">Ga naar overzicht magazijn</a></p>
                     @endif
                 </div>
             </div>
