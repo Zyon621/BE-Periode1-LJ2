@@ -27,6 +27,7 @@
                             <th class="py-2 pr-4">Naam</th>
                             <th class="py-2 pr-4">Verpakkingseenheid</th>
                             <th class="py-2 pr-4">Aantal aanwezig</th>
+                            <th class="py-2 pr-4 text-center">Leverantie Info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,6 +37,11 @@
                                 <td class="py-2 pr-4">{{ $product->Naam }}</td>
                                 <td class="py-2 pr-4">{{ $product->voorraad->VerpakkingsEenheidinKilogram ?? '-' }} kg</td>
                                 <td class="py-2 pr-4">{{ $product->voorraad->AantalAanwezig ?? '-' }}</td>
+                                <td class="py-2 pr-4 text-center">
+                                    <a href="{{ route('magazijn.levering-info', $product) }}" title="Leverantie info">
+                                        <span class="text-blue-600 font-bold text-lg">?</span>
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
