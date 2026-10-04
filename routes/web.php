@@ -28,6 +28,8 @@ Route::get('/klant', function () {
 
 Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('magazijn')->name('magazijn.')->group(function () {
     Route::get('/', [MagazijnController::class, 'overzicht'])->name('overzicht');
+    Route::get('/create', [MagazijnController::class, 'create'])->name('create');
+    Route::post('/', [MagazijnController::class, 'store'])->name('store');
 });
 
 require __DIR__.'/auth.php';

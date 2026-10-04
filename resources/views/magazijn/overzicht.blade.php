@@ -14,6 +14,12 @@
             @endif
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                <div class="flex justify-end mb-4">
+                    <a href="{{ route('magazijn.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 text-white rounded-md text-sm hover:bg-gray-700">
+                        + Nieuw product
+                    </a>
+                </div>
+
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b-2 border-gray-300">
