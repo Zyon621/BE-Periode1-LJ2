@@ -21,6 +21,16 @@ class MagazijnController extends Controller
         return view('magazijn.overzicht', compact('producten'));
     }
 
+    public function leveringInfo(Product $product): View
+    {
+        $leveringen = $product->leveringen()
+            ->with('leverancier')
+            ->orderBy('DatumLevering')
+            ->get();
+
+        return view('magazijn.levering-info', compact('product', 'leveringen'));
+    }
+
     public function create(): View
     {
         return view('magazijn.create');
