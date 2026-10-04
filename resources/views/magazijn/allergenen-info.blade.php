@@ -8,6 +8,16 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                @if ($allergenen->isEmpty())
+                    <p>In dit product zitten geen stoffen die een allergische reactie kunnen veroorzaken.</p>
+                    <p class="text-sm text-gray-500 mt-2">Je wordt over 4 seconden teruggestuurd naar het overzicht...</p>
+
+                    <script>
+                        setTimeout(function () {
+                            window.location.href = "{{ route('magazijn.overzicht') }}";
+                        }, 4000);
+                    </script>
+                @else
                     <div class="mb-6 grid grid-cols-2 gap-2 max-w-md">
                         <div class="font-semibold">Naam Product:</div>
                         <div>{{ $product->Naam }}</div>
@@ -32,6 +42,7 @@
                             @endforeach
                         </tbody>
                     </table>
+                @endif
 
                 <p class="mt-6"><a class="underline text-indigo-600" href="{{ route('magazijn.overzicht') }}">Terug naar overzicht</a></p>
             </div>
