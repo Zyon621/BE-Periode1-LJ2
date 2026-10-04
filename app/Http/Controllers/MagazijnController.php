@@ -31,6 +31,13 @@ class MagazijnController extends Controller
         return view('magazijn.levering-info', compact('product', 'leveringen'));
     }
 
+    public function allergenenInfo(Product $product): View
+    {
+        $allergenen = $product->allergenen()->get();
+
+        return view('magazijn.allergenen-info', compact('product', 'allergenen'));
+    }
+
     public function create(): View
     {
         return view('magazijn.create');

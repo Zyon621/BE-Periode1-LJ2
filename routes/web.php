@@ -31,6 +31,7 @@ Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('mag
     Route::get('/create', [MagazijnController::class, 'create'])->name('create');
     Route::post('/', [MagazijnController::class, 'store'])->name('store');
     Route::get('/{product}/levering-info', [MagazijnController::class, 'leveringInfo'])->name('levering-info');
+    Route::get('/{product}/allergenen-info', [MagazijnController::class, 'allergenenInfo'])->name('allergenen-info');
 });
 
 require __DIR__.'/auth.php';
