@@ -1,19 +1,13 @@
 -- Stap: 01
--- Doel: Maak een nieuwe database opdracht1-jamin aan
+-- Doel: Foreign key checks tijdelijk uitzetten zodat tabellen in elke volgorde
+--       verwijderd kunnen worden, ook als dit script al eerder is uitgevoerd
 -- **********************************************************************************
 -- Versie        Datum:          Auteur:                     Omschrijving:
 -- *******       **********      ****************            ******************
 -- 01            09-09-2026      Zyon Kolf                   Nieuw
 -- **********************************************************************************/
 
--- Controleer of de database al bestaat
-DROP DATABASE IF EXISTS `opdracht1-jamin`;
-
--- Maak een nieuwe database aan
-CREATE DATABASE IF NOT EXISTS `opdracht1-jamin`;
-
--- Gebruik database opdracht1-jamin
-Use `opdracht1-jamin`;
+SET FOREIGN_KEY_CHECKS=0;
 
 
 -- Stap: 02
@@ -261,6 +255,7 @@ CREATE TABLE IF NOT EXISTS Leverancier
    ,ContactPersoon      VARCHAR(50)                     NOT NULL
    ,LeverancierNummer   VARCHAR(20)                     NOT NULL
    ,Mobiel              VARCHAR(15)                     NOT NULL
+   ,Email               VARCHAR(100)                    NOT NULL
    ,IsActief            BIT                             NOT NULL    DEFAULT 1
    ,Opmerkingen         VARCHAR(250)                        NULL    DEFAULT NULL
    ,DatumAangemaakt     DateTime(6)                     NOT NULL
@@ -284,17 +279,18 @@ INSERT INTO Leverancier
     ,ContactPersoon
     ,LeverancierNummer
     ,Mobiel
+    ,Email
     ,IsActief
     ,Opmerkingen
     ,DatumAangemaakt
     ,DatumGewijzigd
 )
 VALUES
-     ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 1, NULL, SYSDATE(6), SYSDATE(6))
-    ,('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 1, NULL, SYSDATE(6), SYSDATE(6));
+     ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827', 'bert.vanlinge@venco.nl', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734', 'jasper.delmonte@astrasweets.nl', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Haribo', 'Sven Stalman', 'L1029324748', '06-24383291', 'sven.stalman@haribo.nl', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('Basset', 'Joyce Stelterberg', 'L1023845773', '06-48293823', 'joyce.stelterberg@basset.nl', 1, NULL, SYSDATE(6), SYSDATE(6))
+    ,('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234', 'remco.veenstra@debron.nl', 1, NULL, SYSDATE(6), SYSDATE(6));
 
 
 -- Stap: 12
@@ -365,3 +361,14 @@ VALUES
     ,(5, 11, '2024-10-19', 60, '2024-10-26', 1, NULL, SYSDATE(6), SYSDATE(6))
     ,(5, 12, '2024-10-11', 45, NULL,          1, NULL, SYSDATE(6), SYSDATE(6))
     ,(5, 13, '2024-10-12', 23, NULL,          1, NULL, SYSDATE(6), SYSDATE(6));
+
+
+-- Stap: 14
+-- Doel: Foreign key checks weer aanzetten
+-- **********************************************************************************
+-- Versie        Datum:          Auteur:                     Omschrijving:
+-- *******       **********      ****************            ******************
+-- 01            09-09-2026      Zyon Kolf                   Nieuw
+-- **********************************************************************************/
+
+SET FOREIGN_KEY_CHECKS=1;
