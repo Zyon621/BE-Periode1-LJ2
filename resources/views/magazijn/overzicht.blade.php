@@ -36,8 +36,8 @@
                             <tr class="border-b border-gray-200">
                                 <td class="py-2 pr-4">{{ $product->Barcode }}</td>
                                 <td class="py-2 pr-4">{{ $product->Naam }}</td>
-                                <td class="py-2 pr-4">{{ $product->voorraad->VerpakkingsEenheidinKilogram ?? '-' }} kg</td>
-                                <td class="py-2 pr-4">{{ $product->voorraad->AantalAanwezig ?? '-' }}</td>
+                                <td class="py-2 pr-4">{{ isset($product->magazijn) ? rtrim(rtrim(number_format($product->magazijn->VerpakkingsEenheid, 1, ',', ''), '0'), ',') : '-' }} kg</td>
+                                <td class="py-2 pr-4">{{ $product->magazijn->AantalAanwezig ?? '-' }}</td>
                                 <td class="py-2 pr-4 text-center">
                                     <a href="{{ route('magazijn.allergenen-info', $product) }}" title="Allergenen info">
                                         <span class="text-red-600 font-bold text-lg">&times;</span>

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Magazijn;
 use App\Models\Product;
-use App\Models\Voorraad;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -14,7 +14,7 @@ class MagazijnController extends Controller
     public function overzicht(): View
     {
         $producten = Product::where('IsActief', 1)
-            ->with('voorraad')
+            ->with('magazijn')
             ->orderBy('Barcode')
             ->get();
 
@@ -47,23 +47,17 @@ class MagazijnController extends Controller
     {
         $validated = $this->validateProduct($request);
 
-        $now = now();
-
         $product = Product::create([
             'Naam' => $validated['Naam'],
             'Barcode' => $validated['Barcode'],
             'IsActief' => 1,
-            'DatumAangemaakt' => $now,
-            'DatumGewijzigd' => $now,
         ]);
 
-        Voorraad::create([
-            'Productid' => $product->Id,
-            'VerpakkingsEenheidinKilogram' => $validated['VerpakkingsEenheidinKilogram'],
+        Magazijn::create([
+            'ProductId' => $product->Id,
+            'VerpakkingsEenheid' => $validated['VerpakkingsEenheid'],
             'AantalAanwezig' => $validated['AantalAanwezig'] ?? null,
             'IsActief' => 1,
-            'DatumAangemaakt' => $now,
-            'DatumGewijzigd' => $now,
         ]);
 
         return redirect()->route('magazijn.overzicht')->with('status', 'Product aangemaakt.');
@@ -77,7 +71,7 @@ class MagazijnController extends Controller
                 'required', 'string', 'max:13',
                 Rule::unique('product', 'Barcode')->ignore($product?->Id, 'Id'),
             ],
-            'VerpakkingsEenheidinKilogram' => ['required', 'string', 'max:10'],
+            'VerpakkingsEenheid' => ['required', 'numeric', 'min:0', 'max:999.9'],
             'AantalAanwezig' => ['nullable', 'numeric', 'min:0'],
         ]);
     }
