@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LeverancierController;
+use App\Http\Controllers\LeveringController;
 use App\Http\Controllers\MagazijnController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,11 @@ Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('mag
 Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('leveranciers')->name('leveranciers.')->group(function () {
     Route::get('/', [LeverancierController::class, 'index'])->name('index');
     Route::get('/{leverancierId}/producten', [LeverancierController::class, 'producten'])->whereNumber('leverancierId')->name('producten');
+
+    Route::get('/{leverancierId}/producten/{productId}/levering', [LeveringController::class, 'create'])
+        ->whereNumber(['leverancierId', 'productId'])->name('levering.create');
+    Route::post('/{leverancierId}/producten/{productId}/levering', [LeveringController::class, 'store'])
+        ->whereNumber(['leverancierId', 'productId'])->name('levering.store');
 });
 
 require __DIR__.'/auth.php';

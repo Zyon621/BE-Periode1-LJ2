@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                @if (session('status'))
+                    <div class="mb-4 p-4 bg-green-100 text-green-800 rounded-md">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
                 <div class="mb-6 grid grid-cols-[12rem_1fr] gap-y-1 max-w-xl">
                     <div class="font-semibold">Naam leverancier</div>
                     <div>: {{ $leverancier->Naam }}</div>
@@ -40,7 +46,7 @@
                                 <td class="py-2 px-3 border-r border-gray-400">{{ rtrim(rtrim(number_format((float) $product->VerpakkingsEenheid, 1, ',', ''), '0'), ',') }} kg</td>
                                 <td class="py-2 px-3 border-r border-gray-400">{{ \Carbon\Carbon::parse($product->DatumLaatsteLevering)->format('d-m-Y') }}</td>
                                 <td class="py-2 px-3 text-center">
-                                    <span title="Nieuwe levering" class="text-xl font-bold">+</span>
+                                    <a href="{{ route('leveranciers.levering.create', [$leverancier->Id, $product->ProductId]) }}" title="Nieuwe levering" class="text-xl font-bold text-gray-800 hover:text-indigo-600">+</a>
                                 </td>
                             </tr>
                         @empty
