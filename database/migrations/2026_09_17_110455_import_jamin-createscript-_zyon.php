@@ -22,7 +22,7 @@ return new class extends Migration
 
         DB::statement('DROP TABLE IF EXISTS ProductPerAllergeen');
         DB::statement('DROP TABLE IF EXISTS ProductPerLeverancier');
-        DB::statement('DROP TABLE IF EXISTS Voorraad');
+        DB::statement('DROP TABLE IF EXISTS Magazijn');
         DB::statement('DROP TABLE IF EXISTS Leverancier');
         DB::statement('DROP TABLE IF EXISTS Product');
         DB::statement('DROP TABLE IF EXISTS Allergeen');

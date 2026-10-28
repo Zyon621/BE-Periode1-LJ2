@@ -11,13 +11,13 @@
 </div>
 
 <div class="mt-4">
-    <x-input-label for="VerpakkingsEenheidinKilogram" value="Verpakkingseenheid (kg)" />
-    <x-text-input id="VerpakkingsEenheidinKilogram" name="VerpakkingsEenheidinKilogram" type="text" class="block mt-1 w-full" :value="old('VerpakkingsEenheidinKilogram', $product->voorraad->VerpakkingsEenheidinKilogram ?? '')" required />
-    <x-input-error :messages="$errors->get('VerpakkingsEenheidinKilogram')" class="mt-2" />
+    <x-input-label for="VerpakkingsEenheid" value="Verpakkingseenheid (kg)" />
+    <x-text-input id="VerpakkingsEenheid" name="VerpakkingsEenheid" type="number" step="0.1" min="0" class="block mt-1 w-full" :value="old('VerpakkingsEenheid', $product->magazijn->VerpakkingsEenheid ?? '')" required />
+    <x-input-error :messages="$errors->get('VerpakkingsEenheid')" class="mt-2" />
 </div>
 
 <div class="mt-4">
     <x-input-label for="AantalAanwezig" value="Aantal aanwezig" />
-    <x-text-input id="AantalAanwezig" name="AantalAanwezig" type="number" step="1" min="0" class="block mt-1 w-full" :value="old('AantalAanwezig', $product->voorraad->AantalAanwezig ?? '')" />
+    <x-text-input id="AantalAanwezig" name="AantalAanwezig" type="number" step="1" min="0" class="block mt-1 w-full" :value="old('AantalAanwezig', $product->magazijn->AantalAanwezig ?? '')" />
     <x-input-error :messages="$errors->get('AantalAanwezig')" class="mt-2" />
 </div>
