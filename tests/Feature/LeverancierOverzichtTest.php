@@ -50,3 +50,23 @@ test('scenario 01: detailscherm toont de geleverde producten van Venco gesorteer
 test('detailscherm van een onbekende leverancier geeft een 404', function () {
     $this->actingAs($this->magazijnmedewerker)->get('/leveranciers/99/producten')->assertNotFound();
 });
+
+test('scenario 02: leverancier zonder geleverde producten toont melding en stuurt na 3 seconden terug', function () {
+    $qualityStreet = collect((new App\Models\LeverancierModel)->getOverzicht())->firstWhere('Naam', 'Quality Street');
+
+    $response = $this->actingAs($this->magazijnmedewerker)->get("/leveranciers/{$qualityStreet->Id}/producten");
+
+    $response->assertOk()
+        ->assertSee('Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin')
+        ->assertSee('Johan Nooij')
+        ->assertSee('}, 3000);', false)
+        ->assertSee(route('leveranciers.index'), false);
+});
+
+test('scenario 02: leverancier met producten stuurt niet automatisch door', function () {
+    $venco = collect((new App\Models\LeverancierModel)->getOverzicht())->firstWhere('Naam', 'Venco');
+
+    $this->actingAs($this->magazijnmedewerker)->get("/leveranciers/{$venco->Id}/producten")
+        ->assertDontSee('}, 3000);', false)
+        ->assertDontSee('geen producten geleverd');
+});

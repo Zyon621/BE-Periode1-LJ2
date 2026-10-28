@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($producten as $product)
+                        @forelse ($producten as $product)
                             <tr class="border-b border-gray-400">
                                 <td class="py-2 px-3 border-r border-gray-400">{{ $product->ProductNaam }}</td>
                                 <td class="py-2 px-3 border-r border-gray-400">{{ $product->AantalAanwezig ?? 0 }}</td>
@@ -43,7 +43,11 @@
                                     <span title="Nieuwe levering" class="text-xl font-bold">+</span>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr class="border-b border-gray-400">
+                                <td colspan="5" class="py-2 px-3 text-center">Dit bedrijf heeft tot nu toe geen producten geleverd aan Jamin</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
 
@@ -54,4 +58,12 @@
             </div>
         </div>
     </div>
+
+    @if (empty($producten))
+        <script>
+            setTimeout(function () {
+                window.location.href = "{{ route('leveranciers.index') }}";
+            }, 3000);
+        </script>
+    @endif
 </x-app-layout>
