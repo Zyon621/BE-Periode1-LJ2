@@ -15,11 +15,11 @@ class Product extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['Naam', 'Barcode', 'IsActief', 'Opmerkingen', 'DatumAangemaakt', 'DatumGewijzigd'];
+    protected $fillable = ['Naam', 'Barcode', 'IsActief', 'Opmerking'];
 
-    public function voorraad(): HasOne
+    public function magazijn(): HasOne
     {
-        return $this->hasOne(Voorraad::class, 'Productid', 'Id');
+        return $this->hasOne(Magazijn::class, 'ProductId', 'Id');
     }
 
     public function allergenen(): BelongsToMany

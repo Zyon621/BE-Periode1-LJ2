@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 @php
-                    $geenVoorraad = ($product->voorraad->AantalAanwezig ?? 0) <= 0;
+                    $geenVoorraad = ($product->magazijn->AantalAanwezig ?? 0) <= 0;
                     $eerstvolgende = $leveringen->last()?->DatumEerstvolgendeLevering;
                 @endphp
 
