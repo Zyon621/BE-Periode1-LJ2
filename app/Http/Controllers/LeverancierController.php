@@ -17,4 +17,15 @@ class LeverancierController extends Controller
 
         return view('leveranciers.index', compact('leveranciers'));
     }
+
+    public function producten(int $leverancierId): View
+    {
+        $leverancier = $this->leverancierModel->getById($leverancierId);
+
+        abort_if($leverancier === null, 404);
+
+        $producten = $this->leverancierModel->getGeleverdeProducten($leverancierId);
+
+        return view('leveranciers.producten', compact('leverancier', 'producten'));
+    }
 }

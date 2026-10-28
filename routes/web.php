@@ -37,6 +37,7 @@ Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('mag
 
 Route::middleware(['auth', 'verified', 'role:magazijn_medewerker'])->prefix('leveranciers')->name('leveranciers.')->group(function () {
     Route::get('/', [LeverancierController::class, 'index'])->name('index');
+    Route::get('/{leverancierId}/producten', [LeverancierController::class, 'producten'])->whereNumber('leverancierId')->name('producten');
 });
 
 require __DIR__.'/auth.php';

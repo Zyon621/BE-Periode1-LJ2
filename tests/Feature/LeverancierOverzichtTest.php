@@ -34,3 +34,19 @@ test('het aantal verschillende producten van Venco is 3', function () {
     expect((int) $venco->AantalVerschillendeProducten)->toBe(3)
         ->and($aantallen)->toBe(collect($aantallen)->sortDesc()->values()->all());
 });
+
+test('scenario 01: detailscherm toont de geleverde producten van Venco gesorteerd op aantal in magazijn aflopend', function () {
+    $venco = collect((new App\Models\LeverancierModel)->getOverzicht())->firstWhere('Naam', 'Venco');
+
+    $response = $this->actingAs($this->magazijnmedewerker)->get("/leveranciers/{$venco->Id}/producten");
+
+    $response->assertOk()
+        ->assertSee('Geleverde producten')
+        ->assertSeeInOrder(['Naam leverancier', 'Venco', 'Bert van Linge', 'L1029384719', '06-28493827'])
+        ->assertSeeInOrder(['Mintnopjes', '453', '5 kg', '18-11-2024'])
+        ->assertSeeInOrder(['Mintnopjes', 'Schoolkrijt', 'Honingdrop']);
+});
+
+test('detailscherm van een onbekende leverancier geeft een 404', function () {
+    $this->actingAs($this->magazijnmedewerker)->get('/leveranciers/99/producten')->assertNotFound();
+});
