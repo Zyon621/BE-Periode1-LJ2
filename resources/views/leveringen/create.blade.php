@@ -8,6 +8,12 @@
     <div class="py-12">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+                @isset($melding)
+                    <div class="mb-6 p-4 bg-red-100 text-red-800 rounded-md">
+                        {{ $melding }}
+                    </div>
+                @endisset
+
                 <div class="mb-6 grid grid-cols-[9rem_1fr] gap-y-1">
                     <div class="font-semibold">Product:</div>
                     <div>{{ $levering->ProductNaam }}</div>
@@ -49,4 +55,12 @@
             </div>
         </div>
     </div>
+
+    @isset($melding)
+        <script>
+            setTimeout(function () {
+                window.location.href = "{{ route('leveranciers.producten', $levering->LeverancierId) }}";
+            }, 4000);
+        </script>
+    @endisset
 </x-app-layout>

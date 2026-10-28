@@ -22,7 +22,7 @@ class LeveringController extends Controller
         return view('leveringen.create', compact('levering'));
     }
 
-    public function store(Request $request, int $leverancierId, int $productId): RedirectResponse
+    public function store(Request $request, int $leverancierId, int $productId): RedirectResponse|View
     {
         $levering = $this->leveringModel->getLeveringProduct($leverancierId, $productId);
 
@@ -41,6 +41,12 @@ class LeveringController extends Controller
         );
 
         abort_if($resultaat->Succes != 1 && $resultaat->Reden === 'ONBEKEND', 404);
+
+        if ($resultaat->Reden === 'NIET_ACTIEF') {
+            $melding = "Het product {$levering->ProductNaam} van de leverancier {$levering->LeverancierNaam} wordt niet meer geproduceerd";
+
+            return view('leveringen.create', compact('levering', 'melding'));
+        }
 
         return redirect()
             ->route('leveranciers.producten', $leverancierId)
